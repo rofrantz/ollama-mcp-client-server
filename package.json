@@ -1,0 +1,21 @@
+{
+  "name": "ollama-mcp-client-server",
+  "version": "1.0.0",
+  "description": "MCP Client-Server Demo",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "server": "node server.js",
+    "client": "node client.js",
+    "mcp-tool": "opencode",
+    "list MCP's": "opencode mcp list"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "latest",
+    "ollama": "latest",
+    "zod": "latest"
+  },
+  "devDependencies": {
+    "opencode-ai": "latest"
+  }
+}
