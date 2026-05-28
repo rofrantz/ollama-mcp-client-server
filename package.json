@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "MCP Client-Server Demo",
   "engines": {
-    "node": ">20",
-    "npm": ">10"
+    "node": ">=20",
+    "npm": ">=10"
   },
   "main": "index.js",
   "type": "module",
@@ -17,7 +17,8 @@
   "dependencies": {
     "@modelcontextprotocol/sdk": "latest",
     "ollama": "latest",
-    "zod": "latest"
+    "zod": "latest",
+    "readline": "latest"
   },
   "devDependencies": {
     "opencode-ai": "latest"

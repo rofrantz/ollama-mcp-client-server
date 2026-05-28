@@ -25,7 +25,7 @@
       "enabled": true,
       "command": [
         "node",
-        "./server.js"
+        "./demo/server.js"
       ]
     }
   }

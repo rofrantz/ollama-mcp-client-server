@@ -1,11 +1,16 @@
-import { Client } from '@modelcontextprotocol/sdk/client';
+import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 async function runClient() {
     const transport = new StdioClientTransport({
         command: 'node',
-        args: ['server.js'],
+        args: [join(__dirname, 'server.js')],
     });
+
 
     const client = new Client({
         name: 'ollama-client',

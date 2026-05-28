@@ -1,7 +1,12 @@
-import { Client } from '@modelcontextprotocol/sdk/client/index.js';
-import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js';
 import ollama from 'ollama';
 import readline from 'readline';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+
+import { Client } from '@modelcontextprotocol/sdk/client/index.js';
+import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 // Setup readline interface for user input
 const rl = readline.createInterface({
@@ -15,7 +20,7 @@ async function runSmartClient() {
     // 1. Connect to the MCP Server
     const transport = new StdioClientTransport({
         command: 'node',
-        args: ['server.js'],
+        args: [join(__dirname, 'server.js')],
     });
 
     const mcpClient = new Client({
@@ -96,7 +101,7 @@ async function runSmartClient() {
             messages.push(response.message);
 
         } catch (error) {
-            console.error('❌ Error during chat:', error.message);
+            console.error('❌ Error during chat:', error);
         }
     }
 
