@@ -44,7 +44,6 @@ console.debug = (...args) => {
 server.registerTool(
     // Tool name exposed to MCP clients
     'ollama_generate',
-
     {
         // Human-readable tool description
         description: 'Generate text using Ollama LLM',
@@ -64,7 +63,6 @@ server.registerTool(
 
     // Tool handler function
     async ({prompt, model, temperature}) => {
-
         // Send chat request to Ollama
         const response = await ollama.chat({
             model,
@@ -100,16 +98,13 @@ server.registerTool(
 //
 server.registerTool(
     'list_models',
-
     {
         description: 'List available Ollama model names',
-
         // No input required
         inputSchema: z.object({}),
     },
 
     async () => {
-
         // Retrieve installed models from Ollama
         const models = await ollama.list();
         // console.debug('XXX', models.models.map(model => model.name));
@@ -130,10 +125,8 @@ server.registerTool(
 //
 server.registerTool(
     'run_model',
-
     {
         description: 'Run Ollama model',
-
         inputSchema: z.object({
             prompt: z.string(),
             model: z.string(),
@@ -141,6 +134,7 @@ server.registerTool(
     },
 
     async ({prompt, model}) => {
+        // console.debug('[run_model]', model);
 
         // Generate plain completion
         const response = await ollama.generate({
@@ -176,4 +170,4 @@ const transport = new StdioServerTransport();
 //
 await server.connect(transport);
 
-console.debug('✅ MCP Server running with Ollama');
+console.debug('✅ MCP Server running with Ollama 🚀');
