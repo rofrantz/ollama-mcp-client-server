@@ -2,6 +2,10 @@
   "name": "ollama-mcp-client-server",
   "version": "1.0.0",
   "description": "MCP Client-Server Demo",
+  "engines": {
+    "node": ">20",
+    "npm": ">10"
+  },
   "main": "index.js",
   "type": "module",
   "scripts": {

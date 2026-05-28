@@ -34,9 +34,9 @@ async function runClient() {
             arguments: {},
         });
 
-        console.log('Available Models:', models.content[0].text);
+        console.log('Current available Ollama models are:', models.content[0].text);
     } catch (error) {
-        console.error('List models failed:', error);
+        console.error('Listing Ollama models failed:', error);
     }
 
     await client.close();
