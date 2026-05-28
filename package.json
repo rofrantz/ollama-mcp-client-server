@@ -9,8 +9,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "server": "node server.js",
-    "client": "node client.js",
+    "server": "node demo/server.js",
+    "client": "node demo/smart-client.js",
     "mcp-tool": "opencode",
     "list MCP's": "opencode mcp list"
   },
