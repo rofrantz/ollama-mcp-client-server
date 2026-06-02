@@ -19,7 +19,6 @@
     "list-MCP's": "opencode mcp list"
   },
   "dependencies": {
-    "@iflow-mcp/mcp-postgres-full-access": "^0.3.0",
     "@modelcontextprotocol/sdk": "latest",
     "ollama": "latest",
     "opencode-ai": "latest",

@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-REQUIRED_PACKAGES=("node@22" "ollama" "postgresql")
+REQUIRED_PACKAGES=("node@22" "ollama" "postgresql" "uvx")
 MISSING_PACKAGES=()
 
 REQUIRED_LLMS=("llama3.2:latest" "qwen2.5:3b" "qwen3.5:latest")

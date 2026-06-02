@@ -70,8 +70,13 @@ The client will decide whether to answer directly or invoke one of the MCP tools
 
 The repo includes sample client configuration files:
 
-- [mcp-servers-config.json](../mcp-servers-config.json)
-- [opencode.json](../opencode.json)
+| Client   | Config File                                           |
+|----------|-------------------------------------------------------|
+| Our Own  | [our custom client](../demo/utils/mcp-tools.js)       |
+| ollmcp   | [mcp-servers-config.json](../mcp-servers-config.json) |
+| OpenCode | [opencode.json](../opencode.json)                     |
+| Codex    | [.codex/config,toml](../.codex/config.toml)           |
+
 
 These files point to `node ./demo/server.js`, which is the current server entrypoint.
 
