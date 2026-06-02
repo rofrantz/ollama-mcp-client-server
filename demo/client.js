@@ -1,50 +1,117 @@
-import { Client } from '@modelcontextprotocol/sdk/client/index.js';
-import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js';
+import readline from 'readline';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
+import { Client } from '@modelcontextprotocol/sdk/client/index.js';
+import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js';
+import { Ollama } from 'ollama';
 
-async function runClient() {
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const ollamaHost = process.env.OLLAMA_HOST || 'http://0.0.0.0:11434';
+const ollama = new Ollama({ host: ollamaHost });
+
+// Setup readline interface for user input
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
+
+const question = (query) => new Promise((resolve) => rl.question(query, resolve));
+
+async function runSmartClient() {
+    // 1. Connect to the MCP Server
     const transport = new StdioClientTransport({
         command: 'node',
         args: [join(__dirname, 'server.js')],
     });
 
-
-    const client = new Client({
-        name: 'ollama-client',
+    const mcpClient = new Client({
+        name: 'smart-ollama-client',
         version: '1.0.0',
     });
 
-    await client.connect(transport);
+    await mcpClient.connect(transport);
+    console.log('🤖 Connected to MCP Server');
+    console.log('Type "exit" or "quit" to stop.\n');
 
-    try {
-        const result = await client.callTool({
-            name: 'ollama_generate',
-            arguments: {
-                prompt: 'Write a javascript function that calculates Fibonacci',
+    // 2. Fetch available tools from the MCP Server
+    const { tools } = await mcpClient.listTools();
+    
+    // 3. Convert MCP tools to Ollama tool format
+    const ollamaTools = tools.map(tool => ({
+        type: 'function',
+        function: {
+            name: tool.name,
+            description: tool.description,
+            parameters: tool.inputSchema,
+        },
+    }));
+
+    // Maintain conversation history
+    let messages = [];
+
+    while (true) {
+        const userInput = await question('👤 User: ');
+
+        if (userInput.toLowerCase() === 'exit' || userInput.toLowerCase() === 'quit') {
+            console.log('👋 Goodbye!');
+            break;
+        }
+
+        if (!userInput.trim()) continue;
+
+        messages.push({ role: 'user', content: userInput });
+
+        try {
+            // Call Ollama with the tools list
+            let response = await ollama.chat({
                 model: 'llama3.2',
-            },
-        });
+                messages: messages,
+                tools: ollamaTools,
+            });
 
-        console.log('Response:', result.content[0].text);
-    } catch (error) {
-        console.error('Tool execution failed:', error);
+            // Handle potential multiple tool calls in a sequence
+            while (response.message.tool_calls && response.message.tool_calls.length > 0) {
+                for (const toolCall of response.message.tool_calls) {
+                    console.log(`🔧 Using tool: ${toolCall.function.name}...`);
+                    
+                    const toolResult = await mcpClient.callTool({
+                        name: toolCall.function.name,
+                        arguments: toolCall.function.arguments,
+                    });
+
+                    // Add tool call and its result to messages
+                    messages.push(response.message);
+                    messages.push({
+                        role: 'tool',
+                        content: toolResult.content[0].text,
+                    });
+                }
+
+                // Get next response from LLM (it might want to call another tool or give final answer)
+                response = await ollama.chat({
+                    model: 'llama3.2',
+                    messages: messages,
+                    tools: ollamaTools,
+                });
+            }
+
+            const finalContent = response.message.content;
+            console.log(`🤖 LLM: ${finalContent}\n`);
+            
+            // Add the final assistant response to history
+            messages.push(response.message);
+
+        } catch (error) {
+            console.error('❌ Error during chat:', error);
+        }
     }
 
-    try {
-        const models = await client.callTool({
-            name: 'list_models',
-            arguments: {},
-        });
-
-        console.log('Current available Ollama models are:', models.content[0].text);
-    } catch (error) {
-        console.error('Listing Ollama models failed:', error);
-    }
-
-    await client.close();
+    await mcpClient.close();
+    rl.close();
 }
 
-runClient().catch(console.error);
+runSmartClient().catch((err) => {
+    console.error('Fatal Error:', err);
+    process.exit(1);
+});

@@ -143,7 +143,7 @@ npm init -y
 npm install @modelcontextprotocol client ollama
 ```
 
-### 3.2 Client Script (`client.js`):
+### 3.2 Client Script (`demo/client.js`):
 
 ```javascript
 import { Client } from '@modelcontextprotocol/sdk/client';
@@ -237,10 +237,10 @@ runClient().catch(console.error);
 
 ```bash
 # Start server
-node server.js &
+node demo/server.js &
 
 # Test from client node
-node client.js
+node demo/client.js
 ```
 
 ### 5.2 Test from IDE Chat:
