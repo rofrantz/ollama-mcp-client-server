@@ -40,9 +40,11 @@ npm install
 
 # Start the MCP Server
 npm run server
+```
 
-# In another terminal, run the test client
-npm run client
+In another terminal, run the test client
+```
+npm run mcp-client-custom
 ```
 
 ---

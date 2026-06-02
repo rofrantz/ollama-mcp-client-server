@@ -6,7 +6,8 @@ import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 
 // Import the tool definition
-import { mcpTools } from './mcp-tools.js';
+import { mcpTools } from './utils/mcp-tools.js';
+import { debug } from './utils/logger.js';
 
 // Create MCP server instance
 const server = new McpServer({
@@ -17,26 +18,15 @@ const server = new McpServer({
     version: '1.0.0',
 });
 
-// Redirect console.debug to stderr so it doesn't break the MCP protocol which relies on standard output
-const styles = {
-    reset: '\x1b[0m',
-    bold: '\x1b[1m',
-    cyan: '\x1b[36m',
-};
-
-console.debug = (...args) => {
-    console.error(`${styles.bold}${styles.cyan}[MCP-SERVER][DEBUG]${styles.reset}`, ...args);
-};
-
 //
 // DYNAMIC TOOL REGISTRATION
 // We iterate through our tool collection and register each one with the MCP server
 //
-console.debug('Registering tools...');
+debug('Registering tools...');
 
 for (const tool of mcpTools) {
     server.registerTool(tool.name, tool.config, tool.handler);
-    console.debug(`\t✅ Tool registered: ${tool.name}`);
+    debug(`\t✅ Tool registered: ${tool.name}`);
 }
 
 //
@@ -52,4 +42,4 @@ const transport = new StdioServerTransport();
 //
 await server.connect(transport);
 
-console.debug('🚀 MCP Server running and ready');
+debug('🚀 MCP Server running and ready');

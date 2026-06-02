@@ -8,8 +8,8 @@
 **Content:**
 - Title: Unlocking AI Potential with MCP
 - Subtitle: Connecting Agents, Data, and Tools Seamlessly
-- Presenter: [Your Name]
-- Date: [Insert Date]
+- Presenter: Francisc Ungureanu
+- Date: 11th June 2026
 
 **Visual:** Clean background, icons representing a bridge connecting AI to Data.
 
