@@ -11,32 +11,6 @@ approval_mode = "approve"
 [mcp_servers.custom-mcp-server.tools.run_model]
 approval_mode = "approve"
 
-[mcp_servers.yfinance]
-command = "uvx"
-args = [
-    "--from",
-    "git+https://github.com/Alex2Yang97/yahoo-finance-mcp",
-    "yahoo-finance-mcp"
-]
-
-[mcp_servers.yfinance.tools.get_yahoo_finance_news]
-approval_mode = "approve"
-
-[mcp_servers.yfinance.tools.get_holder_info]
-approval_mode = "approve"
-
-[mcp_servers.yfinance.tools.get_stock_info]
-approval_mode = "approve"
-
-[mcp_servers.yfinance.tools.get_recommendations]
-approval_mode = "approve"
-
-[mcp_servers.yfinance.tools.get_option_expiration_dates]
-approval_mode = "approve"
-
-[mcp_servers.yfinance.tools.get_option_chain]
-approval_mode = "approve"
-
 [mcp_servers.postgres]
 command = "npx"
 args = [

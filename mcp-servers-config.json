@@ -24,14 +24,6 @@
         "TRANSACTION_TIMEOUT_MS": "60000",
         "MAX_CONCURRENT_TRANSACTIONS": "5"
       }
-    },
-    "yfinance": {
-      "command": "uvx",
-      "args": [
-        "--from",
-        "git+https://github.com/Alex2Yang97/yahoo-finance-mcp",
-        "yahoo-finance-mcp"
-      ]
     }
   }
 }
