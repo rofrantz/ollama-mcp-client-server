@@ -9,6 +9,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "setup-prerequisites": "bash scripts/setup-prerequisites.sh",
     "server": "node demo/server.js",
     "mcp-client-custom": "node demo/client.js",
     "mcp-client-opencode": "opencode",

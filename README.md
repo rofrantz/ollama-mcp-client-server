@@ -1,61 +1,76 @@
-# Presentation: Unlocking AI Potential with MCP
-## Connecting Agents, Data, and Tools Seamlessly
+# Ollama MCP Client-Server
 
-Welcome to the **Ollama MCP Client-Server** project. This repository demonstrates a complete, end-to-end integration of the **[Model Context Protocol (MCP)](https://modelcontextprotocol.io/docs/getting-started/intro)** using **Node.js** and **Ollama**.
+Node.js demo for exposing Ollama through the Model Context Protocol (MCP) and consuming those tools from a local client.
 
-### 🌟 Overview
+## What's included
 
-In the rapidly evolving landscape of AI, the ability for Large Language Models (LLMs) to interact with local data and tools is a game-changer. The **Model Context Protocol (MCP)** provides a standardized way for AI agents to securely and efficiently access the context they need.
+- `demo/server.js` - MCP server that registers the Ollama tools.
+- `demo/client.js` - interactive client that connects to the server over stdio.
+- `demo/utils/mcp-tools.js` - tool implementations backed by Ollama.
+- `scripts/setup-prerequisites.sh` - Homebrew bootstrap for local dependencies.
+- `mcp-servers-config.json` and `opencode.json` - sample MCP client configuration.
 
-This project showcases:
-- **Local LLM Integration:** Leveraging Ollama to run powerful models like `llama3.2` locally.
-- **MCP Server Implementation:** A robust Node.js server that exposes Ollama's capabilities as MCP tools.
-- **MCP Client implementation:** A reference client that connects to the server via Stdio transport.
-- **IDE Integration:** Examples of how to configure Cursor and VS Code to use this MCP server.
+## Prerequisites
 
-### 🚀 Key Features
+- Node.js 20 or newer. The setup script installs Node 22.
+- Ollama running locally. The code defaults to `http://0.0.0.0:11434`; override `OLLAMA_HOST` if you prefer `http://127.0.0.1:11434`.
+- At least one model pulled in Ollama.
 
-- **Standardized Tooling:** Use `ollama_generate`, `list_models`, and `run_model` as standardized MCP tools.
-- **Secure & Local:** Everything runs on your local machine—no data leaves your environment.
-- **Extensible:** Easily add more tools or integrate with other data sources using the MCP SDK.
-- **Developer Friendly:** Clear separation between server logic and client implementation.
-
----
-
-### 📖 Getting Started
-
-To get started with the demo, please refer to the following guides:
-
-1.  **[Prerequisites](./docs/prerequisites.md):** Install Ollama and the necessary models.
-2.  **[MCP Integration Guide](./docs/mcp.md):** Detailed technical deep dive into the MCP setup.
-3.  **[Complete Demo Walkthrough](./docs/mcp-demo.md):** Step-by-step instructions to run the server and client.
-
----
-
-### 🛠️ Quick Start
+If you want the demo to work without changing defaults, pull the models used by the repo:
 
 ```bash
-# Install dependencies
-npm install
+ollama pull llama3.2
+ollama pull qwen2.5:3b
+ollama pull qwen3.5:latest
+```
 
-# Start the MCP Server
+See [docs/prerequisites.md](./docs/prerequisites.md) for the full setup flow.
+
+## Quick Start
+
+```bash
+./scripts/setup-prerequisites.sh
+npm install
+ollama serve
 npm run server
 ```
 
-In another terminal, run the test client
-```
+In a second terminal:
+
+```bash
 npm run mcp-client-custom
 ```
 
----
+The interactive client will connect to the local MCP server, discover the available tools, and route prompts through Ollama.
 
-### 🎯 Presentation Focus
+## Available Scripts
 
-This project is designed to illustrate:
-1.  **The "Why" of MCP:** Solving the context window and tool-use problem.
-2.  **The "How" of Implementation:** Simple, clean Node.js code using the `@modelcontextprotocol/sdk`.
-3.  **Real-world Utility:** Enhancing IDEs like Cursor with local AI power.
+- `npm run server` - start the MCP server from `demo/server.js`.
+- `npm run mcp-client-custom` - start the interactive local client.
+- `npm run mcp-client-opencode` - launch OpenCode.
+- `npm run mcp-client-codex` - launch Codex.
+- `npm run mcp-client-ollmcp` - run the Ollama MCP client wrapper.
+- `npm run list-models` - list Ollama models.
+- `npm run "list-MCP's"` - list MCP servers in OpenCode.
 
----
-*Created for the "Unlocking AI Potential with MCP" presentation.*
+## MCP Tools
 
+The server currently exposes three tools:
+
+- `ollama_generate` - chat-style generation with a prompt, model, and temperature.
+- `list_models` - list locally available Ollama models.
+- `run_model` - run a prompt against a named Ollama model.
+
+The tool definitions live in [demo/utils/mcp-tools.js](./demo/utils/mcp-tools.js).
+
+## Config Files
+
+- [mcp-servers-config.json](./mcp-servers-config.json) - MCP server configuration for clients that consume that format
+- [opencode.json](./opencode.json) - OpenCode configuration for the bundled MCP server
+- [.codex/config.toml](./opencode.json) - Codex configuration for the bundled MCP server
+
+## Documentation
+
+- [Prerequisites](./docs/prerequisites.md)
+- [Demo Walkthrough](./docs/mcp-demo.md)
+- [Presentation Outline](./docs/mcp.md)

@@ -65,7 +65,7 @@ async function runSmartClient() {
         try {
             // Call Ollama with the tools list
             let response = await ollama.chat({
-                model: 'llama3.2',
+                model: 'qwen2.5:3b',
                 messages: messages,
                 tools: ollamaTools,
             });
