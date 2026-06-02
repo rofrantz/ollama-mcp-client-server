@@ -1,0 +1,61 @@
+model = "gpt-5.4-mini"
+
+approval_policy = "never"
+
+[mcp_servers.custom-mcp-server]
+command = "./demo/start-server.sh"
+
+[mcp_servers.custom-mcp-server.tools.list_models]
+approval_mode = "approve"
+
+[mcp_servers.custom-mcp-server.tools.run_model]
+approval_mode = "approve"
+
+[mcp_servers.yfinance]
+command = "uvx"
+args = [
+    "--from",
+    "git+https://github.com/Alex2Yang97/yahoo-finance-mcp",
+    "yahoo-finance-mcp"
+]
+
+[mcp_servers.yfinance.tools.get_yahoo_finance_news]
+approval_mode = "approve"
+
+[mcp_servers.yfinance.tools.get_holder_info]
+approval_mode = "approve"
+
+[mcp_servers.yfinance.tools.get_stock_info]
+approval_mode = "approve"
+
+[mcp_servers.yfinance.tools.get_recommendations]
+approval_mode = "approve"
+
+[mcp_servers.yfinance.tools.get_option_expiration_dates]
+approval_mode = "approve"
+
+[mcp_servers.yfinance.tools.get_option_chain]
+approval_mode = "approve"
+
+[mcp_servers.postgres]
+command = "npx"
+args = [
+    "-y",
+    "@iflow-mcp/mcp-postgres-full-access",
+    "postgresql://myuser:mypassword@localhost:5432/mydb"
+]
+
+[mcp_servers.postgres.tools.execute_dml_ddl_dcl_tcl]
+approval_mode = "approve"
+
+[mcp_servers.postgres.tools.execute_commit]
+approval_mode = "approve"
+
+[mcp_servers.postgres.tools.list_tables]
+approval_mode = "approve"
+
+[mcp_servers.postgres.tools.describe_table]
+approval_mode = "approve"
+
+[mcp_servers.postgres.tools.execute_query]
+approval_mode = "approve"

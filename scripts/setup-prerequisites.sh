@@ -2,7 +2,7 @@
 
 set -e
 
-REQUIRED_PACKAGES=("node@22" "ollama")
+REQUIRED_PACKAGES=("node@22" "ollama" "postgresql")
 MISSING_PACKAGES=()
 
 # Identify missing packages

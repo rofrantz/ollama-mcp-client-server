@@ -10,17 +10,19 @@
   "type": "module",
   "scripts": {
     "server": "node demo/server.js",
-    "client": "node demo/smart-client.js",
-    "mcp-tool": "opencode",
-    "list MCP's": "opencode mcp list"
+    "mcp-client-custom": "node demo/smart-client.js",
+    "mcp-client-opencode": "opencode",
+    "mcp-client-codex": "codex",
+    "mcp-client-ollmcp": "uvx --from mcp-client-for-ollama ollmcp --servers-json mcp-servers-config.json --model qwen3.5:latest",
+    "list-models": "ollama list",
+    "list-MCP's": "opencode mcp list"
   },
   "dependencies": {
+    "@iflow-mcp/mcp-postgres-full-access": "^0.3.0",
     "@modelcontextprotocol/sdk": "latest",
     "ollama": "latest",
-    "zod": "latest",
-    "readline": "latest"
-  },
-  "devDependencies": {
-    "opencode-ai": "latest"
+    "opencode-ai": "latest",
+    "readline": "latest",
+    "zod": "latest"
   }
 }

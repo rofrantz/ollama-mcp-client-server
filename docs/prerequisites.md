@@ -25,9 +25,9 @@ The list of prerequisites is listed below:
 # Useful CLI commands:
 
 - Start Ollama server:
-    ```shell
+  ```shell
   ollama serve
-    ```
+  ```
 - List MCP servers registered to OpenCode
     ```shell
     npx opencode mcp list

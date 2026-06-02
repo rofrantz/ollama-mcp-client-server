@@ -1,12 +1,14 @@
-import ollama from 'ollama';
 import readline from 'readline';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js';
+import { Ollama } from 'ollama';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
+const ollamaHost = process.env.OLLAMA_HOST || 'http://0.0.0.0:11434';
+const ollama = new Ollama({ host: ollamaHost });
 
 // Setup readline interface for user input
 const rl = readline.createInterface({

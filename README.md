@@ -39,10 +39,10 @@ To get started with the demo, please refer to the following guides:
 npm install
 
 # Start the MCP Server
-node server.js
+npm run server
 
 # In another terminal, run the test client
-node client.js
+npm run client
 ```
 
 ---

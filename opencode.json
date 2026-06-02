@@ -1,32 +1,40 @@
 {
   "$schema": "https://opencode.ai/config.json",
 
-  "provider": {
-    "ollama": {
-      "npm": "@ai-sdk/openai-compatible",
-      "name": "Ollama",
-      "options": {
-        "baseURL": "http://127.0.0.1:11434/v1"
-      },
-      "models": {
-        "llama3.2:latest": {
-          "name": "llama3.2:latest",
-          "tools": true
-        }
-      }
-    }
-  },
-
-  "model": "ollama/llama3.2:latest",
+  "model": "ollama/qwen3.5:latest",
 
   "mcp": {
     "our-custom-ollama-mcp-server": {
       "type": "local",
       "enabled": true,
       "command": [
-        "node",
-        "./demo/server.js"
+        "./demo/start-server.sh"
       ]
+    },
+    "postgres": {
+      "type": "local",
+      "command": [
+        "npx",
+        "@iflow-mcp/mcp-postgres-full-access",
+        "postgresql://myuser:mypassword@localhost:5432/mydb"
+      ],
+
+      "enabled": true,
+      "environment": {
+        "DATABASE_URL": "postgresql://myuser:mypassword@localhost:5432/mydb",
+        "TRANSACTION_TIMEOUT_MS": "60000",
+        "MAX_CONCURRENT_TRANSACTIONS": "5"
+      }
+    },
+    "yfinance": {
+      "type": "local",
+      "command": [
+        "uvx",
+        "--from",
+        "git+https://github.com/Alex2Yang97/yahoo-finance-mcp",
+        "yahoo-finance-mcp"
+      ],
+      "enabled": true
     }
   }
 }

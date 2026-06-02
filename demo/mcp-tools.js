@@ -1,5 +1,9 @@
 import { z } from 'zod';
-import ollama from 'ollama';
+import { Ollama } from 'ollama';
+
+const ollamaHost = process.env.OLLAMA_HOST || 'http://0.0.0.0:11434';
+const defaultOllamaModel = process.env.OLLAMA_MODEL || 'llama3.2';
+const ollama = new Ollama({ host: ollamaHost });
 
 // Helper for handlers to access the same logging style if needed
 const styles = {
@@ -16,10 +20,10 @@ export const mcpTools = [
     {
         name: 'ollama_generate',
         config: {
-            description: 'Generate text using Ollama LLM',
+            description: 'Generate text using Ollama LLM validating that we are using one of available Ollama models',
             inputSchema: z.object({
                 prompt: z.string(),
-                model: z.string().default('llama3.2'),
+                model: z.string().default(defaultOllamaModel),
                 temperature: z.number().default(0.7),
             }),
         },
@@ -39,7 +43,7 @@ export const mcpTools = [
     {
         name: 'list_models',
         config: {
-            description: 'List available Ollama model names',
+            description: 'Use this tool whenever the user asks what Ollama models are installed locally',
             inputSchema: z.object({}),
         },
         handler: async () => {

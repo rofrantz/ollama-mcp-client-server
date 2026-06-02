@@ -1,0 +1,37 @@
+{
+  "model": "qwen3.5:latest",
+  "hilSettings": {
+    "enabled": false
+  },
+  "ollama": {
+    "host": "http://127.0.0.1:11434",
+    "model": "qwen2.5-coder:7b"
+  },
+  "mcpServers": {
+    "custom-ollama-tools": {
+      "command": "./demo/start-server.sh",
+      "args": [],
+      "disabled": false
+    },
+    "postgres": {
+      "command": "npx",
+      "args": [
+        "@iflow-mcp/mcp-postgres-full-access",
+        "postgresql://myuser:mypassword@localhost:5432/mydb"
+      ],
+      "env": {
+        "POSTGRES_CONNECTION_STRING": "postgresql://myuser:mypassword@localhost:5432/mydb",
+        "TRANSACTION_TIMEOUT_MS": "60000",
+        "MAX_CONCURRENT_TRANSACTIONS": "5"
+      }
+    },
+    "yfinance": {
+      "command": "uvx",
+      "args": [
+        "--from",
+        "git+https://github.com/Alex2Yang97/yahoo-finance-mcp",
+        "yahoo-finance-mcp"
+      ]
+    }
+  }
+}
