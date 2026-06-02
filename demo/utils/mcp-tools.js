@@ -9,7 +9,10 @@ const ollama = new Ollama({ host: ollamaHost });
 const styles = {
     reset: '\x1b[0m',
     bold: '\x1b[1m',
+    italic: '\x1b[3m',
     cyan: '\x1b[36m',
+    green: '\x1b[32m',
+    gray: '\x1b[90m',
 };
 
 const debug = (...args) => {
@@ -48,7 +51,7 @@ export const mcpTools = [
         },
         handler: async () => {
             const models = await ollama.list();
-            // debug('Tool list_models called', models.models);
+            debug('Tool list_models called');
             return {
                 content: [{
                     type: 'text',
@@ -60,7 +63,7 @@ export const mcpTools = [
     {
         name: 'run_model',
         config: {
-            description: 'Run Ollama model',
+            description: 'Run Ollama with a specific Ollama model',
             inputSchema: z.object({
                 prompt: z.string(),
                 model: z.string(),

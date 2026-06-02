@@ -2,9 +2,11 @@
 
 set -euo pipefail
 
-REQUIRED_PACKAGES=("node@22" "ollama" "postgresql" "uvx")
+# used by brew
+REQUIRED_PACKAGES=("node@22" "uv" "ollama" "postgresql")
 MISSING_PACKAGES=()
 
+# used by Ollama
 REQUIRED_LLMS=("llama3.2:latest" "qwen2.5:3b" "qwen3.5:latest")
 MISSING_LLMS=()
 
@@ -66,6 +68,9 @@ else
         fi
     done
 fi
+
+# install all NodeJS package dependencies
+npm install
 
 echo "DONE"
 echo ""

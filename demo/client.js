@@ -5,6 +5,7 @@ import { dirname, join } from 'path';
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js';
 import { Ollama } from 'ollama';
+import {styles} from "./utils/logger.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ollamaHost = process.env.OLLAMA_HOST || 'http://0.0.0.0:11434';
@@ -26,7 +27,7 @@ async function runSmartClient() {
     });
 
     const mcpClient = new Client({
-        name: 'smart-ollama-client',
+        name: 'custom-ollama-mcp-client',
         version: '1.0.0',
     });
 
@@ -51,8 +52,9 @@ async function runSmartClient() {
     let messages = [];
 
     while (true) {
-        const userInput = await question('👤 User: ');
+        const userInput = await question(`👤 ${styles.bold}User${styles.reset}: `);
 
+        // ensure we have an exit command
         if (userInput.toLowerCase() === 'exit' || userInput.toLowerCase() === 'quit') {
             console.log('👋 Goodbye!');
             break;
@@ -63,7 +65,7 @@ async function runSmartClient() {
         messages.push({ role: 'user', content: userInput });
 
         try {
-            // Call Ollama with the tools list
+            // Call Ollama with the tool list
             let response = await ollama.chat({
                 model: 'qwen2.5:3b',
                 messages: messages,
@@ -73,7 +75,7 @@ async function runSmartClient() {
             // Handle potential multiple tool calls in a sequence
             while (response.message.tool_calls && response.message.tool_calls.length > 0) {
                 for (const toolCall of response.message.tool_calls) {
-                    console.log(`🔧 Using tool: ${toolCall.function.name}...`);
+                    console.log(`🔧 Using tool: ${styles.cyan}${toolCall.function.name}${styles.reset}...`);
                     
                     const toolResult = await mcpClient.callTool({
                         name: toolCall.function.name,
@@ -97,7 +99,7 @@ async function runSmartClient() {
             }
 
             const finalContent = response.message.content;
-            console.log(`🤖 LLM: ${finalContent}\n`);
+            console.log(`🤖 ${styles.bold}LLM${styles.reset}: ${styles.italic}${finalContent}${styles.reset}\n`);
             
             // Add the final assistant response to history
             messages.push(response.message);
