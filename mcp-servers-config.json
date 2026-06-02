@@ -9,8 +9,10 @@
   },
   "mcpServers": {
     "custom-ollama-tools": {
-      "command": "./demo/start-server.sh",
-      "args": [],
+      "command": "node",
+      "args": [
+        "./demo/server.js"
+      ],
       "disabled": false
     },
     "postgres": {

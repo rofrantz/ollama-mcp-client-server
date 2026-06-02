@@ -3,7 +3,10 @@ model = "gpt-5.4-mini"
 approval_policy = "never"
 
 [mcp_servers.custom-mcp-server]
-command = "./demo/start-server.sh"
+command = "node"
+args = [
+    "./demo/server.js"
+]
 
 [mcp_servers.custom-mcp-server.tools.list_models]
 approval_mode = "approve"
