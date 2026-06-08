@@ -1,23 +1,11 @@
 import { z } from 'zod';
 import { Ollama } from 'ollama';
 
+import {debug} from "./logger.js";
+
 const ollamaHost = process.env.OLLAMA_HOST || 'http://0.0.0.0:11434';
 const defaultOllamaModel = process.env.OLLAMA_MODEL || 'llama3.2';
 const ollama = new Ollama({ host: ollamaHost });
-
-// Helper for handlers to access the same logging style if needed
-const styles = {
-    reset: '\x1b[0m',
-    bold: '\x1b[1m',
-    italic: '\x1b[3m',
-    cyan: '\x1b[36m',
-    green: '\x1b[32m',
-    gray: '\x1b[90m',
-};
-
-const debug = (...args) => {
-    console.error(`${styles.bold}${styles.cyan}[MCP-TOOLS][DEBUG]${styles.reset}`, ...args);
-};
 
 export const mcpTools = [
     {

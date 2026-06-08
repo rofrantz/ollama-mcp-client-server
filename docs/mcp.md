@@ -1,8 +1,22 @@
 # Presentation: Unlocking AI Potential with MCP
 ## Connecting Agents, Data, and Tools Seamlessly
-## Estimated Time: 25-30 Minutes
 
 ---
+
+## Intro Slide
+
+## About Me
+Professional
+- 👨‍💻 Full Stack Developer
+- Frontend  •  Backend  •  DevOps
+- 🛠️ 20+ years in IT
+- 🏢 2+ years @ Cognizant
+
+Personal
+- 👨‍👧 Father of a 9yrs old Daughter
+- 🚀 Builder & lifelong learner
+- 📷 Photography
+
 
 ## Slide 1: Title Slide
 **Content:**
@@ -34,7 +48,7 @@ integration for each app. AI is stuck in silos. It needs a way to plumb its own 
 
 ## Slide 3: What is MCP?
 **Content:**
-- Definition: An open protocol standard for connecting AI models to external data sources.
+- Definition: An open protocol standard for connecting AI models to external data sources
 - Analogy: The "USB-C for AI".
 - Core Concept: Decoupling the AI (Host) from the Tool/Data (Server).
 - Origin: Initiated by Anthropic, now open-source community-driven.
@@ -63,7 +77,7 @@ from the server without the app needing to know the specific logic of that serve
 ## Slide 5: Key Benefits
 **Content:**
 - Agility: Swap AI providers or tools without code changes.
-- Scalability: Connect to thousands of new tools easily.
+- Scalability: Connect to new tools easily.
 - Security: Granular permission control (the server decides what to send to the AI).
 - Cost: Reduces development time for AI agents significantly.
 
