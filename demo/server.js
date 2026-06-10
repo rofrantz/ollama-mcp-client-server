@@ -1,12 +1,10 @@
-// Import MCP server core class
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
-
-// Import stdio transport so the server can communicate with MCP clients through stdin/stdout
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 
 // Import the tool definition
 import { mcpTools } from './utils/mcp-tools.js';
-import {debug, styles} from './utils/logger.js';
+
+import { debug, styles } from './utils/logger.js';
 
 // Create MCP server instance
 const server = new McpServer({
