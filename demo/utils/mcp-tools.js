@@ -15,6 +15,7 @@ export const mcpTools = [
             inputSchema: z.object({
                 prompt: z.string(),
                 model: z.string().default(defaultOllamaModel),
+                // controls the creativity of the model's output (0-1)
                 temperature: z.number().default(0.7),
             }),
         },

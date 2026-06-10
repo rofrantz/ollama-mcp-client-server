@@ -10,7 +10,7 @@
   "type": "module",
   "scripts": {
     "setup-prerequisites": "bash scripts/setup-prerequisites.sh",
-    "server": "node demo/server.js",
+    "mcp-server": "node demo/server.js",
     "mcp-client-custom": "node demo/client.js",
     "mcp-client-ollmcp": "uvx --from mcp-client-for-ollama ollmcp --servers-json mcp-servers-config.json --model qwen3.5:latest",
     "mcp-client-opencode": "opencode",

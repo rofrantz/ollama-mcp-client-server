@@ -11,14 +11,6 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const ollamaHost = process.env.OLLAMA_HOST || 'http://0.0.0.0:11434';
 const ollama = new Ollama({ host: ollamaHost });
 
-// Setup readline interface for user input
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
-
-const question = (query) => new Promise((resolve) => rl.question(query, resolve));
-
 async function runSmartClient() {
     // 1. Connect to the MCP Server
     const transport = new StdioClientTransport({
@@ -50,6 +42,14 @@ async function runSmartClient() {
 
     // Maintain conversation history
     let messages = [];
+
+    // Setup readline interface for user input
+    const rl = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout
+    });
+
+    const question = (query) => new Promise((resolve) => rl.question(query, resolve));
 
     while (true) {
         const userInput = await question(`👤 ${styles.bold}User${styles.reset}: `);
