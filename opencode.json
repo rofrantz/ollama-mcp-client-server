@@ -22,7 +22,6 @@
 
       "enabled": true,
       "environment": {
-        "DATABASE_URL": "postgresql://myuser:mypassword@localhost:5432/mydb",
         "TRANSACTION_TIMEOUT_MS": "60000",
         "MAX_CONCURRENT_TRANSACTIONS": "5"
       }

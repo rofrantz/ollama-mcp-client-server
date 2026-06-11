@@ -39,7 +39,9 @@ export const mcpTools = [
             inputSchema: z.object({}),
         },
         handler: async () => {
+            // get available ollama models
             const models = await ollama.list();
+
             debug('Tool list_models called');
             return {
                 content: [{

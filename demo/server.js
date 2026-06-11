@@ -6,13 +6,13 @@ import { mcpTools } from './utils/mcp-tools.js';
 
 import { debug, styles } from './utils/logger.js';
 
-// Create MCP server instance
+// CREATION: Create MCP server instance
 const server = new McpServer({
     name: 'custom-ollama-mcp-server',
     version: '1.0.0',
 });
 
-// DYNAMIC TOOL REGISTRATION: expose our tools / capabilities for our MCP server
+// TOOL REGISTRATION: registers our tools / capabilities that will be exposed by our MCP server
 debug('Registering tools...');
 
 for (const tool of mcpTools) {
