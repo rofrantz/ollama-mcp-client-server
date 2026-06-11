@@ -2,6 +2,22 @@
 
 Node.js demo for exposing Ollama through the Model Context Protocol (MCP) and consuming those tools from a local client.
 
+## Quick Start
+
+```bash
+./scripts/setup-prerequisites.sh
+npm install
+ollama serve
+```
+
+In a second terminal:
+
+```bash
+npm run mcp-client-custom
+```
+
+The interactive client will connect to the local MCP server, discover the available tools, and route prompts through Ollama.
+
 ## What's included
 
 - `demo/server.js` - MCP server that registers the Ollama tools.
@@ -25,22 +41,6 @@ ollama pull qwen3.5:latest
 ```
 
 See [docs/prerequisites.md](./docs/prerequisites.md) for the full setup flow.
-
-## Quick Start
-
-```bash
-./scripts/setup-prerequisites.sh
-npm install
-ollama serve
-```
-
-In a second terminal:
-
-```bash
-npm run mcp-client-custom
-```
-
-The interactive client will connect to the local MCP server, discover the available tools, and route prompts through Ollama.
 
 ## Available Scripts
 
