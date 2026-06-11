@@ -36,3 +36,6 @@ approval_mode = "approve"
 
 [mcp_servers.postgres.tools.execute_query]
 approval_mode = "approve"
+
+[mcp_servers.postgres.tools.execute_rollback]
+approval_mode = "approve"
